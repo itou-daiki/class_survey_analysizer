@@ -64,7 +64,7 @@ if uploaded_file is not None:
 
 
 else:
-    st.write('Excelファイルをアップロードしてください')
+    st.error('Excelファイルをアップロードしてください')
 
 
 # Copyright表示
