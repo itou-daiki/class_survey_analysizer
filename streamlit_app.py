@@ -78,9 +78,9 @@ if uploaded_file is not None:
         # num_vars_ratioの行の順番を反転
         num_vars_ratio = num_vars_ratio.loc[:, ::-1]
         
-        # 肯定群と否定群の割合を計算
-        num_vars_ratio['肯定群'] = num_vars_ratio['4'] + num_vars_ratio['3']
-        num_vars_ratio['否定群'] = num_vars_ratio['2'] + num_vars_ratio['1']
+        # ilocで各行の肯定群（４・３）と否定群（２・１）の割合を計算
+        num_vars_ratio['肯定群'] = num_vars_ratio.iloc[:, :2].sum(axis=1)
+        num_vars_ratio['否定群'] = num_vars_ratio.iloc[:, 2:].sum(axis=1)
     
         # 平均値を追加
         num_vars_ratio['平均値'] = df[num_vars].mean()
