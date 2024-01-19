@@ -41,7 +41,9 @@ if uploaded_file is not None:
         st.stop()
     
     subject = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
+    selected_subject = st.multiselect('教科を選択してください', df[subject].iloc[:,0].unique().tolist())
     teacher = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
+    selected_teacher = st.multiselect('教科を選択してください', df[teacher].iloc[:,0].unique().tolist())
     
     # 数値データがない場合の処理
     if len(numerical_cols) == 0:
@@ -99,9 +101,8 @@ if uploaded_file is not None:
 
         st.subheader('教科別分析')
         # temp_dfから選択した教科のデータのみを抽出し、新しいデータフレームに格納
-        selected_subject = st.multiselect('教科を選択してください', temp_df[subject].iloc[:,0].unique().tolist())
-        selected_subject_df = temp_df[temp_df[subject[0]].isin(selected_subject)]
-        st.write(selected_subject_df)
+        temp_df_subject = temp_df[temp_df[subject].iloc[:,0].isin(selected_subject)]
+        st.write(temp_df_subject)
 
         st.subheader('教師別分析')
 
