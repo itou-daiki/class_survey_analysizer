@@ -121,7 +121,7 @@ if uploaded_file is not None:
         subject_valid_vars = [var for var in num_vars if var in subject_ratio_df.columns]
 
         # 平均値を追加
-        subject_ratio_df['平均値'] = subject_ratio_df[subject_valid_vars].mean() if subject_valid_vars else None
+        subject_ratio_df['平均値'] = subject_ratio_df[subject_valid_vars].mean() if subject_valid_vars else 0
 
         
         # num_vars_ratioを表示（小数点第２位まで）
