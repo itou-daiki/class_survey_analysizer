@@ -72,10 +72,11 @@ if uploaded_file is not None:
 
         # 要約統計量の表示
         st.subheader('要約統計量')
-        st.write(temp_df.describe())           
+        st.write(temp_df.describe().T)           
 
         # 数値データの可視化の一括表示（箱ひげ図）
-        fig = px.box(temp_df, x=num_vars       st.plotly_chart(fig)
+        fig = px.box(temp_df, x=num_vars, points="all")
+        st.plotly_chart(fig)
 
         st.subheader('教科別分析')
 
