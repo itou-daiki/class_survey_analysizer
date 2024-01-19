@@ -78,11 +78,14 @@ if uploaded_file is not None:
         # num_vars_ratioの行の順番を反転
         num_vars_ratio = num_vars_ratio.loc[:, ::-1]
         
+        # 元のデータフレームをコピー
+        num_vars_ratio_copy = num_vars_ratio.copy()
+
         # 列の左半分の合計値を計算
-        num_vars_ratio['肯定群'] = num_vars_ratio.iloc[:, :len(num_vars) // 2].sum(axis=1)
-        
+        num_vars_ratio['肯定群'] = num_vars_ratio_copy.iloc[:, :len(num_vars) // 2].sum(axis=1)
+
         # 列の右半分の合計値を計算
-        num_vars_ratio['否定群'] = num_vars_ratio.iloc[:, len(num_vars) // 2:].sum(axis=1)
+        num_vars_ratio['否定群'] = num_vars_ratio_copy.iloc[:, len(num_vars) // 2:].sum(axis=1)
     
         # 平均値を追加
         num_vars_ratio['平均値'] = df[num_vars].mean()
