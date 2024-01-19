@@ -85,8 +85,8 @@ if uploaded_file is not None:
         # 平均値を追加
         num_vars_ratio['平均値'] = df[num_vars].mean()
         
-        # num_vars_ratioを表示
-        st.write(num_vars_ratio)        
+        # num_vars_ratioを表示（小数点第２位まで）
+        st.write(num_vars_ratio.style.format('{:.2%}'))
 
         # 数値データの平均値の可視化（棒グラフ）
         mean_df = df[[*num_vars]]
