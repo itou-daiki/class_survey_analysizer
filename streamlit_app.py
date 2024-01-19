@@ -71,8 +71,6 @@ if uploaded_file is not None:
         st.header('授業アンケート分析')
 
         st.subheader('全体概要')
-
-        # 要約統計量の表示
         
         # num_varsに格納されている整数の出現割合を計算
         num_vars_ratio = df[num_vars].apply(lambda x: x.value_counts(normalize=True)).T
@@ -101,8 +99,32 @@ if uploaded_file is not None:
 
         st.subheader('教科別分析')
         # temp_dfから選択した教科のデータのみを抽出し、新しいデータフレームに格納
-        temp_df_subject = temp_df[temp_df[subject].iloc[:,0].isin(selected_subject)]
-        st.write(temp_df_subject)
+        subject_df = temp_df[temp_df[subject].iloc[:,0].isin(selected_subject)]
+        st.write(subject_df)
+        
+        # num_varsに格納されている整数の出現割合を計算
+        subject_ratio_df = subject_df[num_vars].apply(lambda x: x.value_counts(normalize=True)).T
+        
+        # num_vars_ratioの行の順番を反転
+        subject_ratio_df = subject_ratio_df.loc[:, ::-1]
+        
+        # 各行ごとに肯定群（４・３）と否定群（２・１）の割合を計算
+        subject_ratio_df['肯定群'] = subject_ratio_df[4]+subject_ratio_df[3]
+        subject_ratio_df['否定群'] = subject_ratio_df[2]+subject_ratio_df[1]
+    
+        # 平均値を追加
+        subject_ratio_df['平均値'] = subject_ratio_df[num_vars].mean()
+        
+        # num_vars_ratioを表示（小数点第２位まで）
+        st.write(subject_ratio_df.style.format('{:.2%}'))
+
+        # 数値データの平均値の可視化（棒グラフ）
+        subject_ratio_mean_df = subject_ratio_df[[*num_vars]]
+        max_value = subject_ratio_mean_df.max().max()
+        fig = px.bar(subject_ratio_mean_df.mean(), title='設問ごとの平均値')
+        fig.update_yaxes(range=[0, max_value])
+        fig.update_layout(showlegend=False)
+        st.plotly_chart(fig, use_container_width=True)
 
         st.subheader('教師別分析')
 
