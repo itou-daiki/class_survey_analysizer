@@ -18,7 +18,7 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file)
     
     # 全ての列が空の列を削除
-    empty_columns = df.columns[data.isna().all()].tolist()
+    empty_columns = df.columns[df.isna().all()].tolist()
     df = df.dropna(axis=1, how='all')
     
     st.write(df.head())
