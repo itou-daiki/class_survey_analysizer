@@ -9,7 +9,7 @@ st.title("授業アンケート分析")
 st.caption("Created by Dit-Lab.(Daiki Ito)")
 
 # ファイルアップローダー
-uploaded_file = st.file_uploader('ファイルをアップロードしてください (Excel or CSV)', type=['xlsx', 'csv'])
+uploaded_file = st.file_uploader('Excelファイルをアップロードしてください', type=['xlsx'])
 
 # データフレームの作成
 df = None
