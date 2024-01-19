@@ -74,9 +74,9 @@ if uploaded_file is not None:
         st.subheader('要約統計量')
         st.write(temp_df.describe().T)           
 
-        # 数値データの可視化の一括表示（箱ひげ図）
-        fig = px.bar(temp_df, y=num_vars)
-        st.plotly_chart(fig)
+        # 数値データの可視化（棒グラフ）
+        px.bar(temp_df, x=subject, y=num_vars, color=teacher, barmode='group')
+
 
         st.subheader('教科別分析')
 
