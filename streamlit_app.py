@@ -84,8 +84,12 @@ if uploaded_file is not None:
         num_vars_ratio = num_vars_ratio.loc[:, ::-1]
         
         # 各行ごとに肯定群（４・３）と否定群（２・１）の割合を計算
-        num_vars_ratio['肯定群'] = num_vars_ratio[4]+num_vars_ratio[3]
-        num_vars_ratio['否定群'] = num_vars_ratio[2]+num_vars_ratio[1]
+        #num_vars_ratio['肯定群'] = num_vars_ratio[4]+num_vars_ratio[3]
+        #num_vars_ratio['否定群'] = num_vars_ratio[2]+num_vars_ratio[1]
+        
+        # 各行ごとに肯定群（４・３）と否定群（２・１）の割合を計算
+        num_vars_ratio['肯定群'] = num_vars_ratio.get(4, 0) + num_vars_ratio.get(3, 0)
+        num_vars_ratio['否定群'] = num_vars_ratio.get(2, 0) + num_vars_ratio.get(1, 0)
     
         # 平均値を追加
         num_vars_ratio['平均値'] = df[num_vars].mean()
@@ -118,11 +122,11 @@ if uploaded_file is not None:
         subject_ratio_df['否定群'] = subject_ratio_df.get(2, 0) + subject_ratio_df.get(1, 0)
 
         # num_varsの各要素がsubject_ratio_dfに存在するか確認
-        valid_vars = [var for var in num_vars if var in subject_ratio_df.columns]
+        subject_valid_vars = [var for var in num_vars if var in subject_ratio_df.columns]
 
         # valid_varsが空でない場合のみ平均値を計算
-        if valid_vars:
-            subject_ratio_df['平均値'] = subject_ratio_df[valid_vars].mean()
+        if subject_valid_vars:
+            subject_ratio_df['平均値'] = subject_ratio_df[subject_valid_vars].mean()
         else:
             st.error('平均値を計算するためのデータが不足しています')
         
