@@ -80,8 +80,9 @@ if uploaded_file is not None:
         
         # num_varsの中身のユニークな値の数が偶数だった場合の処理
         if len(num_vars) % 2 == 0:
-            # 最大値割る2以上の整数の出現割合を計算し、num_vars_ratioに追加
-            num_vars_ratio['max/2'] = num_vars_ratio.max(axis=1) / 2
+            # 列の左半分の合計値を計算し、新しい列として追加
+            num_vars_ratio['total_left'] = num_vars_ratio.iloc[:, :len(num_vars) // 2].sum(axis=1)
+            
             
         
         # num_vars_ratioを表示
