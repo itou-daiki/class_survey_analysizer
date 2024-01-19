@@ -72,7 +72,7 @@ if uploaded_file is not None:
 
         # 要約統計量の表示
         mean_df = df[[*num_vars]]
-        st.write(mean_df)           
+        st.write(mean_df.T)           
 
         # 数値データの平均値の可視化（棒グラフ）
         max_value = mean_df.max().max()
