@@ -120,9 +120,8 @@ if uploaded_file is not None:
         # num_varsの各要素がsubject_ratio_dfに存在するか確認
         subject_valid_vars = [var for var in num_vars if var in subject_ratio_df.columns]
 
-        # 平均値を追加
-        subject_ratio_df['平均値'] = subject_ratio_df[subject_valid_vars].mean() if subject_valid_vars else 0
-
+        # 平均値を追加,平均が計算できない場合はNoneを追加
+        subject_ratio_df['平均値'] = subject_df[subject_valid_vars].mean()
         
         # num_vars_ratioを表示（小数点第２位まで）
         st.write(subject_ratio_df.style.format('{:.2%}'))
