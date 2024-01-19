@@ -117,10 +117,14 @@ if uploaded_file is not None:
         subject_ratio_df['肯定群'] = subject_ratio_df.get(4, 0) + subject_ratio_df.get(3, 0)
         subject_ratio_df['否定群'] = subject_ratio_df.get(2, 0) + subject_ratio_df.get(1, 0)
 
-        # subject_ratio_df[num_vars].mean()が計算できない場合行の値をNoneにする
-        subject_ratio_df = subject_ratio_df.applymap(lambda x: x if pd.notnull(x) else None)
-        # 平均値を追加
-        subject_ratio_df['平均値'] = subject_ratio_df[num_vars].mean()
+        # num_varsの各要素がsubject_ratio_dfに存在するか確認
+        valid_vars = [var for var in num_vars if var in subject_ratio_df.columns]
+
+        # valid_varsが空でない場合のみ平均値を計算
+        if valid_vars:
+            subject_ratio_df['平均値'] = subject_ratio_df[valid_vars].mean()
+        else:
+            st.error('平均値を計算するためのデータが不足しています')
         
         # num_vars_ratioを表示（小数点第２位まで）
         st.write(subject_ratio_df.style.format('{:.2%}'))
