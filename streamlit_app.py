@@ -99,7 +99,7 @@ if uploaded_file is not None:
 
         st.subheader('教科別分析')
         # temp_dfから選択した教科のデータのみを抽出し、新しいデータフレームに格納
-        subject_df = temp_df[temp_df[subject[0]].isin(st.session_state.subject)]
+        subject_df = temp_df[temp_df[subject[0]].isin(subject)]
         st.write(subject_df)
 
         st.subheader('教師別分析')
