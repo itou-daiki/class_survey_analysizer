@@ -72,13 +72,7 @@ if uploaded_file is not None:
 
         # 要約統計量の表示
         st.subheader('要約統計量')
-        
-        # 教科、教員、分析データが選択されていない場合の処理
-        if len(subject) == 0 or len(teacher) == 0 or len(num_vars) == 0:
-            st.error('教科、教員、分析データを選択してください')
-            st.stop()
-            
-        temp_df.describe(include='all').transpose()
+        st.write(temp_df.describe())           
 
         # 数値データの可視化の表示（箱ひげ図）
         for col in num_vars:
