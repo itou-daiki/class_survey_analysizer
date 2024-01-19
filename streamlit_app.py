@@ -71,11 +71,10 @@ if uploaded_file is not None:
         st.subheader('全体概要')
 
         # 要約統計量の表示
-        st.subheader('要約統計量')
-        st.write(temp_df.describe().T)           
+        mean_df = df[[*num_vars]]
+        st.write(mean_df)           
 
         # 数値データの平均値の可視化（棒グラフ）
-        mean_df = df[[*num_vars]]
         max_value = mean_df.max().max()
         fig = px.bar(mean_df.mean(), title='設問ごとの平均値')
         fig.update_yaxes(range=[0, max_value])
