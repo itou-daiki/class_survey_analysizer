@@ -68,6 +68,8 @@ if uploaded_file is not None:
         # ヘッダーの表示
         st.header('授業アンケート分析')
 
+        st.subheader('全体概要')
+
         # 要約統計量の表示
         st.subheader('要約統計量')
         
@@ -80,10 +82,10 @@ if uploaded_file is not None:
 
         # 数値データの可視化の表示（箱ひげ図）
         for col in num_vars:
-            fig = px.box(temp_df, y=col, color=cat_var)
+            fig = px.box(temp_df, y=col, color=subject[0], title=f'箱ひげ図（{col}）')
             st.plotly_chart(fig)
 
-        st.subheader('全体概要')
+
 
         st.subheader('教科別分析')
 
