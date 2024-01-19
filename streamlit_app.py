@@ -99,7 +99,7 @@ if uploaded_file is not None:
 
         st.subheader('教科別分析')
         # temp_dfから選択した教科のデータのみを抽出し、新しいデータフレームに格納
-        selected_subject = st.multiselect('教科を選択してください', subject.unique())
+        selected_subject = st.multiselect('教科を選択してください', temp_df[subject].iloc[:,0].unique().tolist())
         selected_subject_df = temp_df[temp_df[subject[0]].isin(selected_subject)]
         st.write(selected_subject_df)
 
