@@ -35,10 +35,6 @@ if uploaded_file is not None:
     cat_var = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
     cat_var = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
 
-    # 分析する数値データの選択
-    st.subheader("分析する数値データの選択")
-    num_vars = st.multiselect('分析に使用する数値データを選択してください', numerical_cols)
-
     # 分析用データの抽出
     st.subheader("分析する数値データの選択")
     num_vars = st.multiselect('分析に使用する数値データを選択してください', numerical_cols)
