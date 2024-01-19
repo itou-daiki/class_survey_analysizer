@@ -78,7 +78,7 @@ if uploaded_file is not None:
         mean_df = df[[*num_vars]]
         max_value = mean_df.max().max()
         fig = px.bar(mean_df.mean(), title='設問ごとの平均値')
-        fig.update_yaxes(range=[0, max_value],showlegend=False)
+        fig.update_yaxes(range=[0, max_value],showgrid=False)
         st.plotly_chart(fig, use_container_width=True)
 
 
