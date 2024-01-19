@@ -75,7 +75,7 @@ if uploaded_file is not None:
         # num_varsに格納されている整数の出現割合を計算
         num_vars_ratio = df[num_vars].apply(lambda x: x.value_counts(normalize=True)).T
         # num_vars_ratioの行の順番を反転
-        num_vars_ratio = num_vars_ratio.loc[::-1]
+        num_vars_ratio = num_vars_ratio.loc[:, ::-1]
         # num_vars_ratioを表示
         st.write(num_vars_ratio)        
 
