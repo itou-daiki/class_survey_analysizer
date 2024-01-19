@@ -117,10 +117,8 @@ if uploaded_file is not None:
         subject_ratio_df['肯定群'] = subject_ratio_df.get(4, 0) + subject_ratio_df.get(3, 0)
         subject_ratio_df['否定群'] = subject_ratio_df.get(2, 0) + subject_ratio_df.get(1, 0)
 
-        # subject_ratio_df[num_vars].mean()が計算できない場合の処理
-        if len(subject_ratio_df[num_vars].mean()) == 0:
-            st.error('選択した教科のデータがありません')
-            st.stop()
+        # subject_ratio_df[num_vars].mean()が計算できない場合行の値をNoneにする
+        subject_ratio_df = subject_ratio_df.applymap(lambda x: x if pd.notnull(x) else None)
         # 平均値を追加
         subject_ratio_df['平均値'] = subject_ratio_df[num_vars].mean()
         
