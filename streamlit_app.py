@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import plotly.express as px
 
 # Streamlitアプリの設定
 st.set_page_config(page_title="授業アンケート分析")
