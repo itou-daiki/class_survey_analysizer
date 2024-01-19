@@ -53,29 +53,33 @@ if uploaded_file is not None:
     # 選択したデータのみを抽出し、表示する
     temp_df = df[[*subject, *teacher, *num_vars]]
     st.write(temp_df)
-
-    st.header('授業アンケート分析')
-
-    # 要約統計量の表示
-    st.subheader('要約統計量')
     
-    # 教科、教員、分析データが選択されていない場合の処理
-    if len(subject) == 0 or len(teacher) == 0 or len(num_vars) == 0:
-        st.error('教科、教員、分析データを選択してください')
-        st.stop()
+    # 分析実行ボタンの表示
+    if st.button('分析実行'):
         
-    temp_df.describe(include='all').transpose()
+        # ヘッダーの表示
+        st.header('授業アンケート分析')
 
-    # 数値データの可視化の表示（箱ひげ図）
-    for col in num_vars:
-        fig = px.box(temp_df, y=col, color=cat_var)
-        st.plotly_chart(fig)
+        # 要約統計量の表示
+        st.subheader('要約統計量')
+        
+        # 教科、教員、分析データが選択されていない場合の処理
+        if len(subject) == 0 or len(teacher) == 0 or len(num_vars) == 0:
+            st.error('教科、教員、分析データを選択してください')
+            st.stop()
+            
+        temp_df.describe(include='all').transpose()
 
-    st.subheader('全体概要')
+        # 数値データの可視化の表示（箱ひげ図）
+        for col in num_vars:
+            fig = px.box(temp_df, y=col, color=cat_var)
+            st.plotly_chart(fig)
 
-    st.subheader('教科別分析')
+        st.subheader('全体概要')
 
-    st.subheader('教師別分析')
+        st.subheader('教科別分析')
+
+        st.subheader('教師別分析')
 
 
 
