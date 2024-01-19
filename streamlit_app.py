@@ -86,6 +86,9 @@ if uploaded_file is not None:
             # 列の右半分の合計値を計算
             num_vars_ratio['否定群'] = num_vars_ratio.iloc[:, len(num_vars) // 2:].sum(axis=1)
         
+        # 平均値を追加
+        num_vars_ratio['平均値'] = df[num_vars].mean()
+        
         # num_vars_ratioを表示
         st.write(num_vars_ratio)        
 
