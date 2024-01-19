@@ -114,8 +114,8 @@ if uploaded_file is not None:
         subject_ratio_df = subject_ratio_df.loc[:, ::-1]
         
         # 各行ごとに肯定群（４・３）と否定群（２・１）の割合を計算
-        subject_ratio_df['肯定群'] = subject_ratio_df[4]+subject_ratio_df[3]
-        subject_ratio_df['否定群'] = subject_ratio_df[2]+subject_ratio_df[1]
+        subject_ratio_df['肯定群'] = subject_ratio_df.get(4, 0) + subject_ratio_df.get(3, 0)
+        subject_ratio_df['否定群'] = subject_ratio_df.get(2, 0) + subject_ratio_df.get(1, 0)
     
         # 平均値を追加
         subject_ratio_df['平均値'] = subject_ratio_df[num_vars].mean()
