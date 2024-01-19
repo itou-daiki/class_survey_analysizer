@@ -75,7 +75,7 @@ if uploaded_file is not None:
         st.write(temp_df.describe().T)           
 
         # 数値データの可視化（棒グラフ）
-        px.bar(temp_df, x=subject, y=num_vars, color=teacher, barmode='group')
+        fig = px.bar(temp_df, x=num_vars, y=num_vars[0])
 
 
         st.subheader('教科別分析')
