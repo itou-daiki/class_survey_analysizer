@@ -76,6 +76,7 @@ if uploaded_file is not None:
 
         # 数値データの可視化（棒グラフ）
         fig = px.bar(temp_df, x=num_vars, y=num_vars[0])
+        st.plotly_chart(fig, use_container_width=True)
 
 
         st.subheader('教科別分析')
