@@ -75,7 +75,8 @@ if uploaded_file is not None:
         st.write(temp_df.describe().T)           
 
         # 数値データの平均値の可視化（棒グラフ）
-        fig = px.bar(temp_df.mean(), title='平均値', labels={'value': '平均値'})
+        mean_df = df[[*num_vars]]
+        fig = px.bar(mean_df.mean(), title='平均値', labels={'value': '平均値'})
         st.plotly_chart(fig, use_container_width=True)
 
 
