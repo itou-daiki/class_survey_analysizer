@@ -41,6 +41,9 @@ if uploaded_file is not None:
         st.stop()
     
     subject = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
+    # subjectが選択されている場合のみ、教科の選択肢を表示
+    if len(subject) == 0:
+        st.stop()
     selected_subject = st.multiselect('教科を選択してください', df[subject].iloc[:,0].unique().tolist())
     teacher = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
     selected_teacher = st.multiselect('教科を選択してください', df[teacher].iloc[:,0].unique().tolist())
