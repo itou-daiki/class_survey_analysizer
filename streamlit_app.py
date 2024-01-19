@@ -74,10 +74,11 @@ if uploaded_file is not None:
         st.subheader('要約統計量')
         st.write(temp_df.describe())           
 
-        # 数値データの可視化の表示（箱ひげ図）
-        for col in num_vars:
-            fig = px.box(temp_df, y=col, color=subject[0], title=f'箱ひげ図（{col}）')
-            st.plotly_chart(fig)
+        # 数値データの一括表示（箱ひげ図）
+        
+        for i, col in num_vars:
+            fig = px.box(temp_df, y=col)
+            col[i].plotly_chart(fig, use_container_width=True)
 
 
 
