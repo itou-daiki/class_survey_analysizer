@@ -74,6 +74,9 @@ if uploaded_file is not None:
         
         # num_varsに格納されている整数の出現割合を計算
         num_vars_ratio = df[num_vars].apply(lambda x: x.value_counts(normalize=True)).T
+        # num_vars_ratioの列の順番を反転
+        num_vars_ratio = num_vars_ratio.iloc[::-1]
+        # num_vars_ratioを表示
         st.write(num_vars_ratio)        
 
         # 数値データの平均値の可視化（棒グラフ）
