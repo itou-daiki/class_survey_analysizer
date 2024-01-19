@@ -74,8 +74,16 @@ if uploaded_file is not None:
         
         # num_varsに格納されている整数の出現割合を計算
         num_vars_ratio = df[num_vars].apply(lambda x: x.value_counts(normalize=True)).T
+        
         # num_vars_ratioの行の順番を反転
         num_vars_ratio = num_vars_ratio.loc[:, ::-1]
+        
+        # num_varsの中身のユニークな値の数が偶数だった場合の処理
+        if len(num_vars) % 2 == 0:
+            # 最大値割る2以上の整数の出現割合を計算し、num_vars_ratioに追加
+            num_vars_ratio['max/2'] = num_vars_ratio.max(axis=1) / 2
+            
+        
         # num_vars_ratioを表示
         st.write(num_vars_ratio)        
 
