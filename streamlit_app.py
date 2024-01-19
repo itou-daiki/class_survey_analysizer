@@ -75,10 +75,8 @@ if uploaded_file is not None:
         st.write(temp_df.describe())           
 
         # 数値データの可視化の一括表示（箱ひげ図）
-        
-        for col in num_vars:
-            fig = px.box(temp_df, x=num_vars, points="all")
-            st.plotly_chart(fig)
+        fig = px.box(temp_df, x=num_vars, points="all")
+        st.plotly_chart(fig)
 
 
 
