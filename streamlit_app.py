@@ -1,31 +1,69 @@
 # Streamlitライブラリをインポート
 import streamlit as st
 
-# ページ設定（タブに表示されるタイトル、表示幅）
-st.set_page_config(page_title="タイトル", layout="wide")
+# Streamlitアプリの設定
+st.set_page_config(page_title="授業アンケート分析")
 
-# タイトルを設定
-st.title('Streamlitのサンプルアプリ')
+# アプリケーションのタイトルと説明
+st.title("授業アンケート分析")
+st.caption("Created by Dit-Lab.(Daiki Ito)")
 
-# テキスト入力ボックスを作成し、ユーザーからの入力を受け取る
-user_input = st.text_input('あなたの名前を入力してください')
+# ファイルアップローダー
+uploaded_file = st.file_uploader('ファイルをアップロードしてください (Excel or CSV)', type=['xlsx', 'csv'])
 
-# ボタンを作成し、クリックされたらメッセージを表示
-if st.button('挨拶する'):
-    if user_input:  # 名前が入力されているかチェック
-        st.success(f'🌟 こんにちは、{user_input}さん! 🌟')  # メッセージをハイライト
-    else:
-        st.error('名前を入力してください。')  # エラーメッセージを表示
+# データフレームの作成
+df = None
 
-# スライダーを作成し、値を選択
-number = st.slider('好きな数字（10進数）を選んでください', 0, 100)
+if uploaded_file is not None:
+    df = pd.read_excel(uploaded_file)
+    st.write(df.head())
 
-# 補足メッセージ
-st.caption("十字キー（左右）でも調整できます。")
+else:
+    st.write('Excelファイルをアップロードしてください')
 
-# 選択した数字を表示
-st.write(f'あなたが選んだ数字は「{number}」です。')
+st.subheader('分析データの選択')
 
-# 選択した数値を2進数に変換
-binary_representation = bin(number)[2:]  # 'bin'関数で2進数に変換し、先頭の'0b'を取り除く
-st.info(f'🔢 10進数の「{number}」を2進数で表現すると「{binary_representation}」になります。 🔢')  # 2進数の表示をハイライト
+# カテゴリ変数の抽出
+categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
+# 数値変数の抽出
+numerical_cols = df.select_dtypes(exclude=['object', 'category']).columns.tolist()
+
+# 教科・教員データの選択
+st.subheader("教科・教員データの選択")
+cat_var = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
+cat_var = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
+
+# 分析する数値データの選択
+st.subheader("分析する数値データの選択")
+num_vars = st.multiselect('分析に使用する数値データを選択してください', numerical_cols)
+
+# 分析用データの抽出
+st.subheader("分析する数値データの選択")
+num_vars = st.multiselect('分析に使用する数値データを選択してください', numerical_cols)
+
+# 選択したデータのみを抽出し、表示する
+temp_df = df[[cat_var, num_vars]]
+st.write(temp_df)
+
+st.header('授業アンケート分析')
+
+# 要約統計量の表示
+st.subheader('要約統計量')
+temp_df.describe(include='all').transpose()
+
+# 数値データの可視化の表示（箱ひげ図）
+for col in num_vars:
+    fig = px.box(temp_df, y=col, color=cat_var)
+    st.plotly_chart(fig)
+
+
+st.subheader('全体概要')
+
+st.subheader('教科別分析')
+
+st.subheader('教師別分析')
+
+
+
+# Copyright表示
+st.markdown('© 2022-2023 Dit-Lab.(Daiki Ito). All Rights Reserved.')
