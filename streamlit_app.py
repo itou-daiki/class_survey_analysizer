@@ -32,8 +32,18 @@ if uploaded_file is not None:
 
     # 教科・教員データの選択
     st.subheader("教科・教員データの選択")
+    
+    # カテゴリデータがない場合の処理
+    if len(categorical_cols) == 0:
+        st.error('カテゴリ（文字列）データがありません')
+        st.stop()
     cat_var = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
     cat_var = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
+    
+    # 数値データがない場合の処理
+    if len(numerical_cols) == 0:
+        st.error('数値データがありません')
+        st.stop()
 
     # 分析用データの抽出
     st.subheader("分析する数値データの選択")
