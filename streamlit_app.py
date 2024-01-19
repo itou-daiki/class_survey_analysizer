@@ -1,5 +1,5 @@
-# Streamlitライブラリをインポート
 import streamlit as st
+import pandas as pd
 
 # Streamlitアプリの設定
 st.set_page_config(page_title="授業アンケート分析")
