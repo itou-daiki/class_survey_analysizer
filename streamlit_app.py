@@ -55,6 +55,9 @@ if uploaded_file is not None:
     # 選択したデータのみを抽出し、表示する
     temp_df = df[[*subject, *teacher, *num_vars]]
     
+    #temp_dfをセッションに保存
+    st.session_state.temp_df = temp_df
+    
     # 分析用データの表示
     st.subheader("分析用データ")
     st.write(temp_df)
