@@ -77,7 +77,7 @@ if uploaded_file is not None:
         # 数値データの平均値の可視化（棒グラフ）
         mean_df = df[[*num_vars]]
         max_value = mean_df.max().max()
-        fig = px.bar(mean_df.mean(), title='設問ごとの平均値', labels={'value': '平均値'})
+        fig = px.bar(mean_df.mean(), title='設問ごとの平均値', labels='平均値')
         fig.update_yaxes(range=[0, max_value],title='平均値')
         st.plotly_chart(fig, use_container_width=True)
 
