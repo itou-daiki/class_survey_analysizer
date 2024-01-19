@@ -97,35 +97,12 @@ if uploaded_file is not None:
         st.plotly_chart(fig, use_container_width=True)
 
 
-        # 教科別分析
-        if subject and len(subject) > 0:
-            st.subheader('教科別分析')
-            for sub in subject:
-                st.markdown(f"#### {sub}に関する分析")
-                grouped = temp_df.groupby(sub)
-                for col in num_vars:
-                    st.markdown(f"##### {col}に関する分析")
-                    # グループごとの統計値の計算
-                    group_stats = grouped[col].agg(['mean', 'std', 'median'])
-                    st.write(group_stats)
-                    # 可視化
-                    fig = px.bar(group_stats, y='mean', error_y='std', title=f"{sub}における{col}の平均値と標準偏差")
-                    st.plotly_chart(fig, use_container_width=True)
+        st.subheader('教科別分析')
+        # temp_dfから選択した教科のデータのみを抽出し、新しいデータフレームに格納
+        subject_df = temp_df[temp_df[subject[0]].isin(st.session_state.subject)]
+        st.write(subject_df)
 
-        # 教師別分析
-        if teacher and len(teacher) > 0:
-            st.subheader('教師別分析')
-            for teach in teacher:
-                st.markdown(f"#### {teach}に関する分析")
-                grouped = temp_df.groupby(teach)
-                for col in num_vars:
-                    st.markdown(f"##### {col}に関する分析")
-                    # グループごとの統計値の計算
-                    group_stats = grouped[col].agg(['mean', 'std', 'median'])
-                    st.write(group_stats)
-                    # 可視化
-                    fig = px.bar(group_stats, y='mean', error_y='std', title=f"{teach}における{col}の平均値と標準偏差")
-                    st.plotly_chart(fig, use_container_width=True)
+        st.subheader('教師別分析')
 
 
 
