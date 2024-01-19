@@ -37,8 +37,9 @@ if uploaded_file is not None:
     if len(categorical_cols) == 0:
         st.error('カテゴリ（文字列）データがありません')
         st.stop()
-    cat_var = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
-    cat_var = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
+    
+    subject = st.multiselect('教科を示す列を選択してください', categorical_cols,max_selections=1)
+    teacher = st.multiselect('教員を示す列を選択してください', categorical_cols,max_selections=1)
     
     # 数値データがない場合の処理
     if len(numerical_cols) == 0:
@@ -50,7 +51,7 @@ if uploaded_file is not None:
     num_vars = st.multiselect('分析に使用する数値データを選択してください', numerical_cols)
 
     # 選択したデータのみを抽出し、表示する
-    temp_df = df[[cat_var, num_vars]]
+    temp_df = df[[*subject, *teacher, *num_vars]]
     st.write(temp_df)
 
     st.header('授業アンケート分析')
@@ -63,7 +64,6 @@ if uploaded_file is not None:
     for col in num_vars:
         fig = px.box(temp_df, y=col, color=cat_var)
         st.plotly_chart(fig)
-
 
     st.subheader('全体概要')
 
